@@ -1,0 +1,4 @@
+. ./mac
+
+brew install elasticsearch
+brew install memcached
