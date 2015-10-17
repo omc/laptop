@@ -1,5 +1,7 @@
 . ./mac
 
+brew install caskroom/cask/brew-cask
+
 brew cask install java
 
 brew_install_or_upgrade elasticsearch
