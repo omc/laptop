@@ -9,3 +9,9 @@ brew_install_or_upgrade memcached
 brew_install_or_upgrade zookeeper
 brew_install_or_upgrade maven
 brew_install_or_upgrade gh
+
+if [ ! -x pip ]; then
+  sudo easy_install pip
+fi
+
+sudo pip install --ignore-installed --upgrade awscli
