@@ -3,11 +3,14 @@
 brew install caskroom/cask/brew-cask
 
 brew cask install java
+brew_install_or_upgrade maven
+brew_install_or_upgrade ant
 
 brew_install_or_upgrade elasticsearch
 brew_install_or_upgrade memcached
 brew_install_or_upgrade zookeeper
-brew_install_or_upgrade maven
+
 brew_install_or_upgrade gh
 brew_install_or_upgrade watch
 brew_install_or_upgrade pdsh
+brew_install_or_upgrade siege
