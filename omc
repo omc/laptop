@@ -7,6 +7,10 @@ if ! which brew-cask 2>&1 >/dev/null; then
   brew cask install java
 fi
 
+if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
+  curl get.pow.cx | sh
+fi
+
 brew_install_or_upgrade maven
 brew_install_or_upgrade ant
 
