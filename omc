@@ -1,8 +1,12 @@
+#!/bin/sh
+
 . ./mac
 
-brew install caskroom/cask/brew-cask
+if ! which brew-cask 2>&1 >/dev/null; then
+  brew install caskroom/cask/brew-cask
+  brew cask install java
+fi
 
-brew cask install java
 brew_install_or_upgrade maven
 brew_install_or_upgrade ant
 
