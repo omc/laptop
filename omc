@@ -4,13 +4,12 @@
 
 gem_install_or_update hookup
 
-brew_install_or_upgrade maven
-brew_install_or_upgrade ant
-
+# various data services
 brew_install_or_upgrade elasticsearch
 brew_install_or_upgrade memcached
 brew_install_or_upgrade zookeeper
 
+# handy command line tools
 brew_install_or_upgrade gh
 brew_install_or_upgrade watch
 brew_install_or_upgrade pdsh
@@ -41,6 +40,11 @@ brew_cask_install() {
 # Install packages managed with brew cask
 brew_cask_install java
 brew_cask_install chefdk
+
+# java build tools
+brew_install_or_upgrade maven
+brew_install_or_upgrade ant
+brew_install_or_upgrade gradle
 
 # Install Pow
 if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
