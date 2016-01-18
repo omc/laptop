@@ -2,7 +2,7 @@
 
 . ./mac
 
-if ! which brew-cask 2>&1 >/dev/null; then
+if ! brew help cask 2>&1 >/dev/null; then
   brew install caskroom/cask/brew-cask
   brew cask install java
 fi
