@@ -22,3 +22,8 @@ brew_install_or_upgrade gh
 brew_install_or_upgrade watch
 brew_install_or_upgrade pdsh
 brew_install_or_upgrade siege
+
+# AWS credential stuff
+sudo easy_install pip
+sudo pip install awscli
+gem install aws-keychain-util --no-rdoc --no-ri
