@@ -2,6 +2,8 @@
 
 . ./mac
 
+gem_install_or_update hookup
+
 if ! brew help cask 2>&1 >/dev/null; then
   brew install caskroom/cask/brew-cask
   brew cask install java
