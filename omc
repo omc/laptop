@@ -4,15 +4,6 @@
 
 gem_install_or_update hookup
 
-if ! brew help cask 2>&1 >/dev/null; then
-  brew install caskroom/cask/brew-cask
-  brew cask install java
-fi
-
-if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
-  curl get.pow.cx | sh
-fi
-
 brew_install_or_upgrade maven
 brew_install_or_upgrade ant
 
@@ -33,3 +24,25 @@ gem install aws-keychain-util --no-rdoc --no-ri
 # Elixir and Phoenix
 brew_install_or_upgrade elixir
 yes | mix local.hex
+
+# Install brew cask
+if ! brew help cask 2>&1 >/dev/null; then
+  brew tap caskroom/cask
+fi
+
+# Cask installer
+brew_cask_install() {
+  package="$1"
+  if brew cask info ${package} 2>&1 | grep -q "Not installed"; then
+    brew cask install ${package}
+  fi
+}
+
+# Install packages managed with brew cask
+brew_cask_install java
+brew_cask_install chefdk
+
+# Install Pow
+if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
+  curl get.pow.cx | sh
+fi
