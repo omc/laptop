@@ -1,50 +1,39 @@
 #!/bin/sh
 
+echo "Starting with Thoughtbot base configuration..."
 . ./mac
 
-gem_install_or_update hookup
+echo
+echo "Continuing with OMC specific tools and services..."
 
-# various data services
-brew_install_or_upgrade elasticsearch
-brew_install_or_upgrade memcached
-brew_install_or_upgrade zookeeper
+brew bundle --file=- <<EOF
+cask "java"
+cask "chefdk"
 
-# handy command line tools
-brew_install_or_upgrade gh
-brew_install_or_upgrade watch
-brew_install_or_upgrade pdsh
-brew_install_or_upgrade siege
+brew "elasticsearch"
+brew "memcached"
+brew "zookeeper"
+brew "gh"
+brew "watch"
+brew "pdsh"
+brew "siege"
+brew "elixir"
+
+brew "maven"
+brew "gradle"
+brew "ant"
+EOF
 
 # AWS credential stuff
 sudo easy_install pip
 sudo pip install awscli
-gem install aws-keychain-util --no-rdoc --no-ri
+
+gem_install_or_update "aws-keychain-util"
+gem_install_or_update "aws-sdk-v1"
+gem_install_or_update "hookup"
 
 # Elixir and Phoenix
-brew_install_or_upgrade elixir
 yes | mix local.hex
-
-# Install brew cask
-if ! brew help cask 2>&1 >/dev/null; then
-  brew tap caskroom/cask
-fi
-
-# Cask installer
-brew_cask_install() {
-  package="$1"
-  if brew cask info ${package} 2>&1 | grep -q "Not installed"; then
-    brew cask install ${package}
-  fi
-}
-
-# Install packages managed with brew cask
-brew_cask_install java
-brew_cask_install chefdk
-
-# java build tools
-brew_install_or_upgrade maven
-brew_install_or_upgrade ant
-brew_install_or_upgrade gradle
 
 # Install Pow
 if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
