@@ -59,3 +59,8 @@ command -v yarn >/dev/null 2>&1 || {
   echo "Installing Yarn for Javascript package management"
   npm install -g yarn
 }
+
+# OS X: check for updates daily
+if [ $(defaults read com.apple.SoftwareUpdate ScheduleFrequency) != "1" ]; then
+  defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+fi
