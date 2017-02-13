@@ -11,6 +11,7 @@ cask "java"
 cask "chefdk"
 
 brew "elasticsearch"
+brew "elixir"
 brew "memcached"
 brew "zookeeper"
 brew "gh"
@@ -61,6 +62,11 @@ command -v yarn >/dev/null 2>&1 || {
 }
 
 # OS X: check for updates daily
-if [ $(defaults read com.apple.SoftwareUpdate ScheduleFrequency) != "1" ]; then
+defaults read com.apple.SoftwareUpdate ScheduleFrequency
+if [ "$?" != "0" ]; then
+  # com.apple.SoftwareUpdate is not set. Create it with a val of 1:
+  echo "Creating key com.apple.SoftwareUpdate"
+  defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+elif [ $(defaults read com.apple.SoftwareUpdate ScheduleFrequency) != "1" ]; then
   defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 fi
