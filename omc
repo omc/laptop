@@ -22,14 +22,9 @@ brew "siege"
 brew "maven"
 brew "gradle"
 brew "ant"
+brew "awscli"
 EOF
 echo
-
-# AWS credential stuff
-echo "Requesting sudo for 'easy_install pip'"
-sudo easy_install pip
-echo "Requesting sudo for 'pip install awscli'"
-sudo pip install awscli
 
 gem_install_or_update "aws-keychain-util"
 gem_install_or_update "aws-sdk-v1"
