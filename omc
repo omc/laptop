@@ -22,7 +22,9 @@ brew "siege"
 brew "maven"
 brew "gradle"
 brew "ant"
+
 brew "awscli"
+brew "shellcheck"
 EOF
 echo
 
