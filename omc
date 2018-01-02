@@ -7,14 +7,14 @@ echo
 echo "Continuing with OMC specific tools and services..."
 
 brew bundle --file=- <<EOF
-cask "java"
+cask "java8"
 cask "chefdk"
 
 brew "elasticsearch"
 brew "elixir"
 brew "memcached"
 brew "zookeeper"
-brew "gh"
+brew "hub"
 brew "watch"
 brew "pdsh"
 brew "siege"
@@ -45,12 +45,12 @@ find_latest_other_ruby() {
   other="$1"
   rbenv install -l | grep ${other} | tail -1 | sed -e 's/^ *//'
 }
-for platform in jruby rbx; do
-  ruby_version="$(find_latest_other_ruby ${platform})"
-  if ! rbenv versions | grep -Fq "${ruby_version}"; then
-    RUBY_CONFIGURE_OPTS=--with-openssl-dir=/usr/local/opt/openssl rbenv install -s "${ruby_version}"
-  fi
-done
+# for platform in jruby rbx; do
+#   ruby_version="$(find_latest_other_ruby ${platform})"
+#   if ! rbenv versions | grep -Fq "${ruby_version}"; then
+#     RUBY_CONFIGURE_OPTS=--with-openssl-dir=/usr/local/opt/openssl rbenv install -s "${ruby_version}"
+#   fi
+# done
 
 # Install Yarn JS package manager
 command -v yarn >/dev/null 2>&1 || {
