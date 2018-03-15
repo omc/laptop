@@ -11,7 +11,6 @@ cask "java8"
 cask "chefdk"
 
 brew "elasticsearch"
-brew "elixir"
 brew "memcached"
 brew "zookeeper"
 brew "hub"
@@ -31,9 +30,6 @@ echo
 gem_install_or_update "aws-keychain-util"
 gem_install_or_update "aws-sdk-v1"
 gem_install_or_update "hookup"
-
-# Elixir and Phoenix
-yes | mix local.hex
 
 # Install Pow
 if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
