@@ -1,0 +1,34 @@
+echo -n "Enter your name: "
+read git_name
+git config --global user.name "${git_name}"
+echo -n "Enter your email: "
+read git_email
+git config --global user.email "${git_email}"
+echo -n "Enter your editor (default is nano): "
+read git_editor
+git config --global core.editor "${git_editor:=nano}"
+
+echo "Available GPG Keys:"
+gpg --list-keys
+echo -n "Enter your signing key: "
+read git_signkey
+if []; then
+  git config --global user.signingkey "$git_signkey"
+else
+  echo "no key specified... skipping"
+fi
+
+echo "Setting up aliases..."
+git config --global alias.s    'status'
+git config --global alias.co   'checkout'
+git config --global alias.cob  'checkout -b'
+git config --global alias.del  'branch -D' 
+git config --global alias.br   "branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate"
+git config --global alias.save "!git add -A && git commit -m 'chore: savepoint'"
+git config --global alias.undo 'reset HEAD~1 --mixed'
+git config --global alias.res  '!git reset --hard'
+git config --global alias.done '!git push origin HEAD'
+git config --global alias.lg   '!git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30'
+
+echo "Git settings"
+git config --list
