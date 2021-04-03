@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "Installing XCode tools (ignore any errors)..."
+xcode-select --install
+
 echo "Starting with Thoughtbot base configuration..."
 . ./mac
 
@@ -25,6 +28,11 @@ brew "ant"
 
 brew "awscli"
 brew "shellcheck"
+
+# Version managers
+brew "rbenv"   # Ruby
+brew "nodenv"  # Node
+
 EOF
 echo
 
@@ -40,17 +48,10 @@ if [ ! -f /Library/LaunchDaemons/cx.pow.firewall.plist ]; then
   curl get.pow.cx | sh
 fi
 
-# Install latest JRuby, Rubinius
-find_latest_other_ruby() {
-  other="$1"
-  rbenv install -l | grep ${other} | tail -1 | sed -e 's/^ *//'
-}
-# for platform in jruby rbx; do
-#   ruby_version="$(find_latest_other_ruby ${platform})"
-#   if ! rbenv versions | grep -Fq "${ruby_version}"; then
-#     RUBY_CONFIGURE_OPTS=--with-openssl-dir=/usr/local/opt/openssl rbenv install -s "${ruby_version}"
-#   fi
-# done
+# Install Rubies
+rbenv init
+rbenv install 2.6.6 # Bonsai
+rbenv install 2.4.9 # Websolr
 
 # Install Yarn JS package manager
 command -v yarn >/dev/null 2>&1 || {
@@ -67,3 +68,6 @@ if [ "$?" != "0" ]; then
 elif [ $(defaults read com.apple.SoftwareUpdate ScheduleFrequency) != "1" ]; then
   defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 fi
+
+# Install Nix
+curl -L https://nixos.org/nix/install | sh
